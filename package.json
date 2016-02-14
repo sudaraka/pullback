@@ -1,0 +1,26 @@
+{
+  "name": "@sudaraka/pullback",
+  "version": "0.0.0",
+  "description": "Pull backup data from web server into local server.",
+  "main": "src/main.js",
+  "preferGlobal": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "pullback": "dist/main.js"
+  },
+  "scripts": {
+    "test": "exit 0;"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sudaraka/pullback.git"
+  },
+  "author": "Sudaraka Wijesinghe <sudaraka@sudaraka.org> (https://sudaraka.org/)",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/sudaraka/pullback/issues"
+  },
+  "homepage": "https://github.com/sudaraka/pullback#readme"
+}

@@ -13,4 +13,5 @@ details.
 
 ## [Unreleased]
 ### Added
+- package.json: task & package management via `npm`.
 - README, LICENSE and CHANGELOG
