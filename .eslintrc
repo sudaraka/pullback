@@ -1,0 +1,6 @@
+{
+  "extends": "@sudaraka/default",
+  "env": {
+    "node": true
+  }
+}

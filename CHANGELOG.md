@@ -13,5 +13,6 @@ details.
 
 ## [Unreleased]
 ### Added
+- `eslint` support.
 - package.json: task & package management via `npm`.
 - README, LICENSE and CHANGELOG

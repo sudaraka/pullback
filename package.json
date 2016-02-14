@@ -11,6 +11,7 @@
     "pullback": "dist/main.js"
   },
   "scripts": {
+    "pretest": "eslint src/**",
     "test": "exit 0;"
   },
   "repository": {
@@ -22,5 +23,9 @@
   "bugs": {
     "url": "https://github.com/sudaraka/pullback/issues"
   },
-  "homepage": "https://github.com/sudaraka/pullback#readme"
+  "homepage": "https://github.com/sudaraka/pullback#readme",
+  "devDependencies": {
+    "@sudaraka/eslint-config-default": "^0.3.1",
+    "eslint": "^2.0.0"
+  }
 }
