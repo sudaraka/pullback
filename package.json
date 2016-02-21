@@ -12,6 +12,9 @@
   },
   "scripts": {
     "build": "babel src -d dist",
+    "postbuild": "chmod +x dist/cli.js",
+    "clean": "rm -fr dist/",
+    "start": "npm run build -- -w",
     "pretest": "eslint src/**",
     "test": "exit 0;"
   },
