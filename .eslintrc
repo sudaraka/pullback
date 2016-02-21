@@ -1,6 +1,7 @@
 {
   "extends": "@sudaraka/default",
   "env": {
-    "node": true
+    "node": true,
+    "mocha": true
   }
 }
