@@ -13,6 +13,7 @@ details.
 
 ## [Unreleased]
 ### Added
+- Container object to functionally process data
 - `mocha` based unit test support.
 - Basic buildable command line script.
 - `babel` to transpile ES2015 code.

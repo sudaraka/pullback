@@ -11,7 +11,7 @@
     "pullback": "dist/cli.js"
   },
   "scripts": {
-    "build": "babel src -d dist --ignore '**/*__test.js'",
+    "build": "babel src -d dist --ignore '**/*__test.js,test/*'",
     "postbuild": "chmod +x dist/cli.js",
     "clean": "rm -fr dist/",
     "start": "npm run build -- -w",
