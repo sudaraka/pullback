@@ -21,7 +21,6 @@ const
   compose = (f, g) => x => f(g(x)),
 
   // container :: a, f -> Container(a, f)
-  // Implements the "Coyoneda.lift(a)" pattern in a closure
   container = (value, mapFunction) => {
     let
       // Closure prevents direct access to the contained value
@@ -30,7 +29,7 @@ const
       // Composed function(s) received via map()
       _mapperQueue = null
 
-    // Prototype for the container object exposed to outside.
+    // Prototype for the container object exposed to outside. {{{
     class Container {
       constructor(newValue, newFunction) {
         _value = newValue
@@ -53,14 +52,10 @@ const
         return _mapperQueue(_value)
       }
     }
-
-    if('function' !== typeof mapFunction) {
-      // Fall back to id function
-      mapFunction = id
-    }
+    // }}}
 
     return new Container(value, mapFunction)
   }
 
-
-export default container
+// Implements the "Coyoneda.lift(a)" pattern in a closure
+export default v => container(v, id)
