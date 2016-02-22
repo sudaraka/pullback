@@ -13,7 +13,7 @@
  *
  */
 
-import expect from 'expect'
+import expect, { spyOn } from 'expect'
 import { is_functor } from './test/helpers'
 import container from './container'
 
@@ -29,12 +29,14 @@ describe('Container', () => {
       })
     })
 
-    it('should return a container', () => {
+    it('should return a new container', () => {
       const
         container_a = container(42),
         container_b = container_a.map(val => val + 1)
 
       is_functor(container_b)
+
+      expect(container_b).toNotBe(container_a)
 
       container_b.map(val => {
         expect(val).toBe(43)
@@ -59,6 +61,74 @@ describe('Container', () => {
           'map with object returned a new container')
     })
 
+    it('should not execute given function', () => {
+      const
+        wrapper = {
+          'mapper': v => v + 1
+        },
+
+        spy = spyOn(wrapper, 'mapper')
+
+      container(42).map(wrapper.mapper)
+
+      expect(spy).toNotHaveBeenCalled()
+    })
+
+  })
+
+  describe('value() method', () => {
+
+    it('should return the contained value', () => {
+      expect(container(42).value()).toBe(42)
+    })
+
+    it('should execute all mapped functions', () => {
+      const
+        wrapper = {
+          'mapper1': v => v + 1,
+          'mapper2': v => `Answer is ${v}`
+        },
+
+        spy1 = spyOn(wrapper, 'mapper1'),
+        spy2 = spyOn(wrapper, 'mapper2')
+
+      container(41)
+        .map(wrapper.mapper1)
+        .map(wrapper.mapper2)
+        .value()
+
+      expect(spy1).toHaveBeenCalled('mapper1 was not called')
+      expect(spy2).toHaveBeenCalled('mapper2 wasnot called')
+    })
+
+    it('should return mapped value', () => {
+      const
+        mapper1 = v => v + 1,
+        mapper2 = v => `Answer is ${v}`,
+
+        result = container(41)
+          .map(mapper2)
+          .map(mapper1)
+          .value()
+
+      expect(result).toBe('Answer is 42')
+    })
+
+    it('should not mutate parent container', () => {
+      const
+        mapper1 = v => v + 1,
+        mapper2 = v => `Answer is ${v}`,
+
+        result1 = container(41),
+        result2 = result1.map(mapper2),
+        result3 = result2.map(mapper1)
+
+      expect(result1.value()).toBe(41)
+      expect(result2.value()).toBe('Answer is 41')
+      expect(result3.value()).toBe('Answer is 42')
+    })
+
   })
 
 })
+

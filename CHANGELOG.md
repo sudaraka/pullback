@@ -13,6 +13,7 @@ details.
 
 ## [Unreleased]
 ### Added
+- Lazy evaluation mapped functions of the container.
 - Container object to functionally process data
 - `mocha` based unit test support.
 - Basic buildable command line script.

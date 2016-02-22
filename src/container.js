@@ -14,23 +14,30 @@
  */
 
 const
-  // container :: a -> Container(a)
+  // id :: x -> x
+  id = x => x,
+
+  // compose :: (f, g) -> x -> f(g(x))
+  compose = (f, g) => x => f(g(x)),
+
+  // container :: a, f -> Container(a, f)
   // Implements the "Coyoneda.lift(a)" pattern in a closure
-  container = value => {
+  container = (value, mapFunction) => {
     let
       // Closure prevents direct access to the contained value
-      _value = null
+      _value = null,
 
       // Composed function(s) received via map()
-      // _mapped = null
+      _mapperQueue = null
 
     const
       // Prototype for the container object exposed to outside.
-      Container = newValue => {
+      Container = (newValue, newFunction) => {
         _value = newValue
+        _mapperQueue = newFunction
       }
 
-    // map :: f -> Container(f(a))
+    // Container(a, f).map :: g -> Container(a, f(g))
     // Note: not using arrow function as `this` must bind to the inner scope.
     Container.prototype.map = function(f) {
       if('function' !== typeof f) {
@@ -38,10 +45,19 @@ const
         return this
       }
 
-      return container(f(_value))
+      // Return a container with a new closure environment
+      return container(_value, compose(_mapperQueue, f))
     }
 
-    return new Container(value)
+    // Container(a, f).value :: _ -> f(a)
+    Container.prototype.value = () => _mapperQueue(_value)
+
+    if('function' !== typeof mapFunction) {
+      // Fall back to id function
+      mapFunction = id
+    }
+
+    return new Container(value, mapFunction)
   }
 
 
