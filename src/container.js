@@ -36,7 +36,7 @@ const
         _mapperQueue = newFunction
       }
 
-      // Container(a, f).map :: g -> Container(a, f(g))
+      // Container(a, f).map :: g -> Container(a, g(f))
       map(f) {
         if('function' !== typeof f) {
           // When given `f` is not callable, return the same container.
@@ -44,7 +44,7 @@ const
         }
 
         // Return a container with a new closure environment
-        return container(_value, compose(_mapperQueue, f))
+        return container(_value, compose(f, _mapperQueue))
       }
 
       // Container(a, f).value :: _ -> f(a)

@@ -107,8 +107,8 @@ describe('Container', () => {
         mapper2 = v => `Answer is ${v}`,
 
         result = container(41)
-          .map(mapper2)
           .map(mapper1)
+          .map(mapper2)
           .value()
 
       expect(result).toBe('Answer is 42')
@@ -120,11 +120,11 @@ describe('Container', () => {
         mapper2 = v => `Answer is ${v}`,
 
         result1 = container(41),
-        result2 = result1.map(mapper2),
-        result3 = result2.map(mapper1)
+        result2 = result1.map(mapper1),
+        result3 = result2.map(mapper2)
 
       expect(result1.value()).toBe(41)
-      expect(result2.value()).toBe('Answer is 41')
+      expect(result2.value()).toBe(42)
       expect(result3.value()).toBe('Answer is 42')
     })
 
