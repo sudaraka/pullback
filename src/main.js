@@ -9,8 +9,30 @@
  * details.
  */
 
+import { readFileSync } from 'fs'
+
 import config from './config'
+import { toJSON } from './utils'
 
 export default () => {
-  console.log(JSON.stringify(config.value(), null, 2))
+  const
+    readCache = cfg => {
+      let
+        cacheContent = '{}'
+
+      try{
+        cacheContent = readFileSync(cfg.cacheFile, 'utf8')
+      }
+      catch(ex) {}  // eslint-disable-line no-empty
+
+      return { ...cfg, 'cache': toJSON(cacheContent) }
+    }
+
+  console.log(JSON.stringify(
+
+  config
+    .map(readCache)
+    .value()
+
+  , null, 2))
 }

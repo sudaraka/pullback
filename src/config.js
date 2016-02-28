@@ -9,19 +9,26 @@
  * details.
  */
 
+import path from 'path'
+import os from 'os'
+
 import { read as readConfig } from 'find-config'
-import { split, last, concat } from 'ramda'
+import { compose, split, last, concat } from 'ramda'
 
 import container from './containers/container'
+import { toJSON } from './utils'
 import pkg from '../package.json'
 
 const
+  pkgNameToAppName = compose(last, split('/')),
+
   defaultConfig = {
-    'url': 'https://repo.sudaraka.org/backup/'
+    'url': 'https://repo.sudaraka.org/backup/',
+    'cacheFile': path.join(os.homedir(), '.cache', pkgNameToAppName(pkg.name))
   }
 
 export default container(pkg.name)
-  .map(split('/')).map(last).map(concat('.'))   // @ns/name => .name
+  .map(compose(concat('.'), pkgNameToAppName))  // @ns/name => .name
   .map(readConfig)                              // Read file as text
-  .map(JSON.parse)                              // Get JSON object
+  .map(toJSON)                                  // Get JSON object
   .map(c => ({ ...defaultConfig, ...c }))       // Apply default
