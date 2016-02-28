@@ -13,7 +13,8 @@ details.
 
 ## [Unreleased]
 ### Added
-- Always container to pass-though errors
+- `find-config` to read application configuration.
+- Always container to pass-though errors.
 - Lazy evaluation mapped functions of the container.
 - Container object to functionally process data
 - `mocha` based unit test support.

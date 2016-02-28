@@ -9,6 +9,8 @@
  * details.
  */
 
+import config from './config'
+
 export default () => {
-  console.log('Backups pulled down from server!!!')
+  console.log(JSON.stringify(config.value(), null, 2))
 }
