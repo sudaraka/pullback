@@ -13,6 +13,7 @@ details.
 
 ## [Unreleased]
 ### Added
+- Stage-2 `eslint` presets.
 - `find-config` to read application configuration.
 - Always container to pass-though errors.
 - Lazy evaluation mapped functions of the container.

@@ -24,4 +24,4 @@ export default container(pkg.name)
   .map(split('/')).map(last).map(concat('.'))   // @ns/name => .name
   .map(readConfig)                              // Read file as text
   .map(JSON.parse)                              // Get JSON object
-  .map(c => Object.assign(defaultConfig, c))    // Apply default
+  .map(c => ({ ...defaultConfig, ...c }))       // Apply default
