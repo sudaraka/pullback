@@ -1,5 +1,5 @@
 /**
- * src/container__test.js: test for container.js
+ * src/containers/container__test.js: test for container.js
  *
  * Copyright 2016 Sudaraka Wijesinghe <sudaraka@sudaraka.org>
  *
@@ -14,7 +14,7 @@
  */
 
 import expect, { spyOn } from 'expect'
-import { is_functor } from './test/helpers'
+import { is_functor } from '../test/helpers'
 import container from './container'
 
 describe('Container', () => {

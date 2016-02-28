@@ -1,5 +1,5 @@
 /**
- * src/container.js: Functor to contain data
+ * src/containers/container.js: Functor to contain data
  *
  * Copyright 2016 Sudaraka Wijesinghe <sudaraka@sudaraka.org>
  *
