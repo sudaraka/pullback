@@ -11,9 +11,11 @@
     "pullback": "dist/cli.js"
   },
   "scripts": {
+    "prebuild": "npm test",
     "build": "babel src -d dist --ignore '**/*__test.js,test/*'",
     "postbuild": "chmod +x dist/cli.js",
     "clean": "rm -fr dist/",
+    "prepublish": "npm run build",
     "start": "npm run build -- -w",
     "pretest": "eslint src/**",
     "test": "mocha --compilers js:babel-register --check-leaks --bail --growl --recursive src/**/*__test.js"
