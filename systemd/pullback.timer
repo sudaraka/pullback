@@ -1,0 +1,10 @@
+# pullback.timer: Invoke pullback service every hour
+
+[Unit]
+Description=Run periodical pullback service
+
+[Timer]
+OnCalendar=*-*-* *:00:00
+
+[Install]
+Also=pullback.service

@@ -1,0 +1,10 @@
+# pullback.service: Execute pullback script periodically
+
+[Unit]
+Description=Pull backups from server to local disk
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/bin/pullback
+

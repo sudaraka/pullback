@@ -13,6 +13,7 @@ details.
 
 ## [Unreleased]
 ### Added
+- systemd unit files to run script periodically. (requires manual installation)
 - `node-fetch` to fetch data over HTTP(S).
 - Stage-2 `eslint` presets.
 - `find-config` to read application configuration.
