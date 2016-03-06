@@ -24,7 +24,8 @@ const
 
   defaultConfig = {
     'url': 'https://repo.sudaraka.org/backup/',
-    'cacheFile': path.join(os.homedir(), '.cache', pkgNameToAppName(pkg.name))
+    'cacheFile': path.join(os.homedir(), '.cache', pkgNameToAppName(pkg.name)),
+    'stat': {}
   }
 
 export default container(pkg.name)

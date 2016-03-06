@@ -13,6 +13,7 @@ details.
 
 ## [Unreleased]
 ### Added
+- `node-fetch` to fetch data over HTTP(S).
 - Stage-2 `eslint` presets.
 - `find-config` to read application configuration.
 - Lazy evaluation mapped functions of the container.

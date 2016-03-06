@@ -11,6 +11,8 @@
 
 import { readFileSync } from 'fs'
 
+import fetch from 'node-fetch'
+
 import config from './config'
 import { toJSON } from './utils'
 
@@ -28,11 +30,24 @@ export default () => {
       return { ...cfg, 'cache': toJSON(cacheContent) }
     }
 
-  console.log(JSON.stringify(
-
   config
     .map(readCache)
+    .map(cfg => {
+
+      // Fetch JSON string from URL
+      fetch(cfg.url)
+
+        // Get JSON object
+        .then(res => res.json())
+
+        // Index stat by filename { filename: data }
+        .then(list => list.reduce((acc, f) => {
+          acc[f.name] = f
+          cfg.stat[f.name] = f.size
+
+          return acc
+        }, {}))
+    })
     .value()
 
-  , null, 2))
 }
