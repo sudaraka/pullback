@@ -24,6 +24,7 @@ const
 
   defaultConfig = {
     'url': 'https://repo.sudaraka.org/backup/',
+    'dest': path.join(os.homedir(), 'backup', 'sw-web1'),
     'cacheFile': path.join(os.homedir(), '.cache', pkgNameToAppName(pkg.name)),
     'stat': {}
   }

@@ -9,8 +9,10 @@
  * details.
  */
 
-import { readFileSync } from 'fs'
+import { readFileSync, createWriteStream, writeFile } from 'fs'
+import { basename, join as path_join } from 'path'
 
+import mkdirP from 'mkdirp'
 import fetch from 'node-fetch'
 
 import config from './config'
@@ -47,6 +49,35 @@ export default () => {
 
           return acc
         }, {}))
+        .then(list => {
+          const
+            changedFiles = Object.keys(list)
+              .reduce((acc, fname) => {
+                if(parseInt(list[fname].size, 10) !== parseInt(cfg.cache[fname], 10)) {
+                  // Current file size is different or not found in cache.
+                  // Download file
+                  acc.push(fetch(`${cfg.url}${fname}`))
+                }
+
+                return acc
+              }, [])
+
+          return Promise.all(changedFiles)
+        })
+        .then(list => {
+          // Save files to disk
+
+          mkdirP.sync(cfg.dest)
+
+          list.forEach(f => {
+            f.body.pipe(createWriteStream(path_join(cfg.dest, basename(f.url))))
+          })
+
+          // Update cache
+          if(0 < list.length) {
+            writeFile(cfg.cacheFile, JSON.stringify(cfg.stat, null, 2))
+          }
+        })
     })
     .value()
 
