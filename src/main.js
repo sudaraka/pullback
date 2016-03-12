@@ -10,7 +10,7 @@
  */
 
 import { readFileSync, createWriteStream, writeFile } from 'fs'
-import { basename, join as path_join } from 'path'
+import { basename, dirname, join as path_join } from 'path'
 
 import mkdirP from 'mkdirp'
 import fetch from 'node-fetch'
@@ -75,6 +75,8 @@ export default () => {
 
           // Update cache
           if(0 < list.length) {
+            mkdirP(dirname(cfg.cacheFile))
+
             writeFile(cfg.cacheFile, JSON.stringify(cfg.stat, null, 2))
           }
         })
