@@ -11,7 +11,7 @@ details.
 
 ---
 
-## [Unreleased]
+## [1.0.0] - 2016-03-12
 ### Added
 - systemd unit files to run script periodically. (requires manual installation)
 - `node-fetch` to fetch data over HTTP(S).
