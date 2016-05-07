@@ -11,6 +11,10 @@ details.
 
 ---
 
+## [Unreleased]
+### Changed
+- `babel` packages updated to latest version as of 2016-05-07
+
 ## [1.0.0] - 2016-03-12
 ### Added
 - systemd unit files to run script periodically. (requires manual installation)
