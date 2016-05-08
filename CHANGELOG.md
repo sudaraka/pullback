@@ -12,6 +12,9 @@ details.
 ---
 
 ## [Unreleased]
+### Added
+- Separate .cache data file for keep track of Telegram subscribers.
+
 ### Changed
 - `babel` packages updated to latest version as of 2016-05-07
 
