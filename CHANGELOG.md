@@ -11,7 +11,7 @@ details.
 
 ---
 
-## [Unreleased]
+## [1.1.0] - 2016-05-08
 ### Added
 - Send Telegram notifications to subscribers about new downloads.
 - Acknowledge subscription status by sending a message.
