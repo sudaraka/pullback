@@ -13,6 +13,7 @@ details.
 
 ## [Unreleased]
 ### Added
+- Send Telegram notifications to subscribers about new downloads.
 - Acknowledge subscription status by sending a message.
 - Ability to send messages to Telegram bot subscribers.
 - Update subscription cache file on each run of the application.

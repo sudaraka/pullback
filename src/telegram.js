@@ -85,4 +85,4 @@ const
     fetch(`${telegramAPI}sendMessage`, apiCall)
   }
 
-export { readTelegramCache, handleTelegramRequests }
+export { readTelegramCache, handleTelegramRequests, sendMessage }
