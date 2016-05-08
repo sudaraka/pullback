@@ -13,6 +13,7 @@ details.
 
 ## [Unreleased]
 ### Added
+- Acknowledge subscription status by sending a message.
 - Ability to send messages to Telegram bot subscribers.
 - Update subscription cache file on each run of the application.
 - Separate .cache data file for keep track of Telegram subscribers.

@@ -30,16 +30,20 @@ const
         if(res.ok) {  // API returned successful result
           res.result.reduce((cache, update) => {
             const
-              { text, 'chat': { id } } = update.message,
+              { text, 'chat': { id, first_name } } = update.message,
               subscribers = new Set(cache.subscribers)
 
             cache.lastUpdate = update.update_id
 
             if(text.startsWith('/start')) {
               subscribers.add(id)
+
+              sendMessage(`Hi ${first_name},\n\nYou have been subscibeded to receive *pullback* notifications`, id)
             }
             else if(text.startsWith('/stop')) {
               subscribers.delete(id)
+
+              sendMessage(`Hi ${first_name},\n\nYou were unsubscibeded from receiving *pullback* notifications`, id)
             }
 
             cache.subscribers = [...subscribers]
