@@ -11,6 +11,17 @@ details.
 
 ---
 
+## [Unreleased]
+### Added
+- Send Telegram notifications to subscribers about new downloads.
+- Acknowledge subscription status by sending a message.
+- Ability to send messages to Telegram bot subscribers.
+- Update subscription cache file on each run of the application.
+- Separate .cache data file for keep track of Telegram subscribers.
+
+### Changed
+- `babel` packages updated to latest version as of 2016-05-07
+
 ## [1.0.0] - 2016-03-12
 ### Added
 - systemd unit files to run script periodically. (requires manual installation)

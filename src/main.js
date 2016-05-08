@@ -17,6 +17,7 @@ import fetch from 'node-fetch'
 
 import config from './config'
 import { toJSON } from './utils'
+import { readTelegramCache, handleTelegramRequests, sendMessage } from './telegram'
 
 export default () => {
   const
@@ -34,6 +35,8 @@ export default () => {
 
   config
     .map(readCache)
+    .map(readTelegramCache)
+    .map(handleTelegramRequests)
     .map(cfg => {
 
       // Fetch JSON string from URL
@@ -78,6 +81,13 @@ export default () => {
             mkdirP(dirname(cfg.cacheFile))
 
             writeFile(cfg.cacheFile, JSON.stringify(cfg.stat, null, 2))
+
+            cfg.telegram.subscribers.map(
+              sendMessage.bind(
+                null,
+                `File(s) downloaded from server:\n\n- ${list.map(f => basename(f.url)).join('\n- ')}`
+              )
+            )
           }
         })
     })

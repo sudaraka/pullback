@@ -6,5 +6,6 @@ Description=Pull backups from server to local disk
 [Service]
 Type=oneshot
 RemainAfterExit=no
+Environment="TG_API_KEY="
 ExecStart=/usr/bin/pullback
 
