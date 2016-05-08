@@ -17,7 +17,7 @@ import fetch from 'node-fetch'
 
 import config from './config'
 import { toJSON } from './utils'
-import { readTelegramCache } from './telegram'
+import { readTelegramCache, handleTelegramRequests } from './telegram'
 
 export default () => {
   const
@@ -36,6 +36,7 @@ export default () => {
   config
     .map(readCache)
     .map(readTelegramCache)
+    .map(handleTelegramRequests)
     .map(cfg => {
 
       // Fetch JSON string from URL

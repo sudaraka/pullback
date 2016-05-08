@@ -13,6 +13,7 @@ details.
 
 ## [Unreleased]
 ### Added
+- Update subscription cache file on each run of the application.
 - Separate .cache data file for keep track of Telegram subscribers.
 
 ### Changed

@@ -9,11 +9,51 @@
  * details.
  */
 
-import { readFileSync } from 'fs'
+import { readFileSync, writeFile } from 'fs'
+import fetch from 'node-fetch'
 
 import { toJSON } from './utils'
 
-export const
+const
+  telegramAPI = `https://api.telegram.org/bot${process.env.TG_API_KEY || ''}/`,  // eslint-disable-line no-process-env
+
+  handleTelegramRequests = cfg => {
+    const
+      updateOffset = parseInt(cfg.telegram.lastUpdate || 0, 10) + 1
+
+    fetch(`${telegramAPI}getUpdates?offset=${updateOffset}`)
+
+      // Get JSON object
+      .then(res => res.json())
+
+      .then(res => {
+        if(res.ok) {  // API returned successful result
+          res.result.reduce((cache, update) => {
+            const
+              { text, 'chat': { id } } = update.message,
+              subscribers = new Set(cache.subscribers)
+
+            cache.lastUpdate = update.update_id
+
+            if(text.startsWith('/start')) {
+              subscribers.add(id)
+            }
+            else if(text.startsWith('/stop')) {
+              subscribers.delete(id)
+            }
+
+            cache.subscribers = [...subscribers]
+
+            return cache
+          }, cfg.telegram)
+
+          writeFile(cfg.telegramFile, JSON.stringify(cfg.telegram, null, 2))
+        }
+      })
+
+    return cfg
+  },
+
   readTelegramCache = cfg => {
     let
       telegramContent = '{"lastUpdate": null, "subscribers": []}'
@@ -25,3 +65,5 @@ export const
 
     return { ...cfg, 'telegram': toJSON(telegramContent) }
   }
+
+export { readTelegramCache, handleTelegramRequests }
