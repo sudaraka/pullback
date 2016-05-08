@@ -64,6 +64,21 @@ const
     catch(ex) {}  // eslint-disable-line no-empty
 
     return { ...cfg, 'telegram': toJSON(telegramContent) }
+  },
+
+  sendMessage = (text, chat_id) => {
+    const
+      apiCall = {
+        'method': 'POST',
+        'headers': { 'content-type': 'application/json' },
+        'body': JSON.stringify({
+          'parse_mode': 'markdown',
+          text,
+          chat_id
+        })
+      }
+
+    fetch(`${telegramAPI}sendMessage`, apiCall)
   }
 
 export { readTelegramCache, handleTelegramRequests }
