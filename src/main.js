@@ -25,12 +25,15 @@ export default () => {
       let
         cacheContent = '{}'
 
-      try{
+      try {
         cacheContent = readFileSync(cfg.cacheFile, 'utf8')
       }
       catch(ex) {}  // eslint-disable-line no-empty
 
-      return { ...cfg, 'cache': toJSON(cacheContent) }
+      return {
+        ...cfg,
+        'cache': toJSON(cacheContent)
+      }
     }
 
   config

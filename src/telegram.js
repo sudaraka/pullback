@@ -46,7 +46,7 @@ const
               sendMessage(`Hi ${first_name},\n\nYou were unsubscibeded from receiving *pullback* notifications`, id)
             }
 
-            cache.subscribers = [...subscribers]
+            cache.subscribers = [ ...subscribers ]
 
             return cache
           }, cfg.telegram)
@@ -62,12 +62,15 @@ const
     let
       telegramContent = '{"lastUpdate": null, "subscribers": []}'
 
-    try{
+    try {
       telegramContent = readFileSync(cfg.telegramFile, 'utf8')
     }
     catch(ex) {}  // eslint-disable-line no-empty
 
-    return { ...cfg, 'telegram': toJSON(telegramContent) }
+    return {
+      ...cfg,
+      'telegram': toJSON(telegramContent)
+    }
   },
 
   sendMessage = (text, chat_id) => {

@@ -35,4 +35,7 @@ export default container(pkg.name)
   .map(compose(concat('.'), pkgNameToAppName))  // @ns/name => .name
   .map(readConfig)                              // Read file as text
   .map(toJSON)                                  // Get JSON object
-  .map(c => ({ ...defaultConfig, ...c }))       // Apply default
+  .map(c => ({
+    ...defaultConfig,
+    ...c
+  }))                                           // Apply default

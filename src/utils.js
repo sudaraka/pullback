@@ -10,7 +10,7 @@
  */
 
 export const toJSON = string => {
-  try{
+  try {
     return JSON.parse(string)
   }
   catch(ex) {
