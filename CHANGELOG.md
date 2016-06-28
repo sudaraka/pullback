@@ -11,6 +11,10 @@ details.
 
 ---
 
+## [Unreleased]
+### Added
+- Show archive file size difference in the notification.
+
 ## [1.1.0] - 2016-05-08
 ### Added
 - Send Telegram notifications to subscribers about new downloads.

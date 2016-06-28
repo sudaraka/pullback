@@ -62,7 +62,16 @@ export default () => {
                 if(parseInt(list[fname].size, 10) !== parseInt(cfg.cache[fname], 10)) {
                   // Current file size is different or not found in cache.
                   // Download file
-                  acc.push(fetch(`${cfg.url}${fname}`))
+                  acc.push(
+                    fetch(`${cfg.url}${fname}`)
+                    .then(res => ({
+                      ...res,
+                      'sizes': [
+                        parseInt(cfg.cache[fname], 10),  // From
+                        parseInt(list[fname].size, 10)  // To
+                      ]
+                    }))
+                  )
                 }
 
                 return acc
@@ -85,10 +94,14 @@ export default () => {
 
             writeFile(cfg.cacheFile, JSON.stringify(cfg.stat, null, 2))
 
+            list.forEach(f => {
+              f.sizes = f.sizes.filter(s => !isNaN(s)).join(' -> ')  // show size as "from -> to"
+            })
+
             cfg.telegram.subscribers.map(
               sendMessage.bind(
                 null,
-                `File(s) downloaded from server:\n\n- ${list.map(f => basename(f.url)).join('\n- ')}`
+                `File(s) downloaded from server:\n\n- ${list.map(f => `${basename(f.url)} [ ${f.sizes} ]`).join('\n- ')}`
               )
             )
           }
