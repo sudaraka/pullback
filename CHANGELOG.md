@@ -11,6 +11,11 @@ details.
 
 ---
 
+## [Unreleased]
+### Changed
+- Ignore file changes in less than 12 bytes to avoid anomaly in git repo
+  backup.
+
 ## [1.1.1] - 2016-06-29
 ### Added
 - Show archive file size difference in the notification.

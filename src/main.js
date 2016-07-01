@@ -59,9 +59,18 @@ export default () => {
           const
             changedFiles = Object.keys(list)
               .reduce((acc, fname) => {
-                if(parseInt(list[fname].size, 10) !== parseInt(cfg.cache[fname], 10)) {
+                const
+                  newSize = parseInt(list[fname].size, 10),
+                  cacheSize = parseInt(cfg.cache[fname], 10),
+                  diff = Math.abs(newSize - cacheSize)
+
+                if(isNaN(diff) || 12 < diff) {
                   // Current file size is different or not found in cache.
                   // Download file
+                  //
+                  // [2016-07-01]; ignoring size difference of 4 bytes as backup
+                  // of the git repo seem to add 3 x 4 byte chunks and revert.
+
                   acc.push(
                     fetch(`${cfg.url}${fname}`)
                     .then(res => ({
