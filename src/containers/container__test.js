@@ -63,10 +63,7 @@ describe('Container', () => {
 
     it('should not execute given function', () => {
       const
-        wrapper = {
-          'mapper': v => v + 1
-        },
-
+        wrapper = { 'mapper': v => v + 1 },
         spy = spyOn(wrapper, 'mapper')
 
       container(42).map(wrapper.mapper)
