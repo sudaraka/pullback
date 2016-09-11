@@ -110,7 +110,7 @@ export default () => {
             cfg.telegram.subscribers.map(
               sendMessage.bind(
                 null,
-                `File(s) downloaded from server:\n\n- ${list.map(f => `${basename(f.url)} [ ${f.sizes} ]`).join('\n- ')}`
+                `File(s) downloaded from server:\n\n- ${list.map(f => `${basename(f.url)}  ${f.sizes}`).join('\n- ')}`
               )
             )
           }

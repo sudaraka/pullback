@@ -11,6 +11,11 @@ details.
 
 ---
 
+## [Unreleased]
+### Fixed
+- Issue with Telegram notification not showing up because of brackets in the
+  message.
+
 ## [1.1.2] - 2016-07-01
 ### Changed
 - Ignore file changes in less than 12 bytes to avoid anomaly in git repo
