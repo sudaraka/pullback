@@ -11,7 +11,7 @@ details.
 
 ---
 
-## [Unreleased]
+## [1.1.3] - 2016-09-11
 ### Fixed
 - Issue with Telegram notification not showing up because of brackets in the
   message.
