@@ -101,7 +101,7 @@ export default () => {
           if(0 < list.length) {
             mkdirP(dirname(cfg.cacheFile))
 
-            writeFile(cfg.cacheFile, JSON.stringify(cfg.stat, null, 2))
+            writeFile(cfg.cacheFile, JSON.stringify(cfg.stat, null, 2), () => {})
 
             list.forEach(f => {
               f.sizes = f.sizes.filter(s => !isNaN(s)).join(' -> ')  // show size as "from -> to"
