@@ -43,7 +43,7 @@
   "dependencies": {
     "find-config": "^1.0.0",
     "mkdirp": "^0.5.1",
-    "node-fetch": "^2.1.2",
+    "node-fetch": "^1.7.3",
     "ramda": "^0.25.0"
   }
 }
