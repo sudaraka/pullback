@@ -115,6 +115,16 @@ export default () => {
             )
           }
         })
+        .catch(ex => {
+          console.error(ex)
+
+          cfg.telegram.subscribers.map(
+            sendMessage.bind(
+              null,
+              `ERROR:\n\n${ex}`
+            )
+          )
+        })
     })
     .value()
 
