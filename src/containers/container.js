@@ -48,7 +48,7 @@ const
       }
 
       // Container(a, f).value :: _ -> f(a)
-      value() {
+      value() {  // eslint-disable-line class-methods-use-this
         return _mapperQueue(_value)
       }
     }

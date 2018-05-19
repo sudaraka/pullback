@@ -32,10 +32,14 @@ const
   }
 
 export default container(pkg.name)
-  .map(compose(concat('.'), pkgNameToAppName))  // @ns/name => .name
-  .map(readConfig)                              // Read file as text
-  .map(toJSON)                                  // Get JSON object
+  // @ns/name => .name
+  .map(compose(concat('.'), pkgNameToAppName))
+  // Read file as text
+  .map(readConfig)
+  // Get JSON object
+  .map(toJSON)
+  // Apply default
   .map(c => ({
     ...defaultConfig,
     ...c
-  }))                                           // Apply default
+  }))

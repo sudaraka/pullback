@@ -18,8 +18,7 @@ const
   //   - Is and Object
   //   - Containing map() method.
   //
-  is_functor = container => {
-
+  isFunctor = container => {
     it('must be an Object', () => {
       expect(container()).toBeAn(Object)
     })
@@ -27,7 +26,6 @@ const
     it('must implement a map() method', () => {
       expect(container().map).toBeAn(Function)
     })
-
   }
 
-export { is_functor }
+export { isFunctor }

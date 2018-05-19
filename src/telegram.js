@@ -9,6 +9,8 @@
  * details.
  */
 
+/* eslint-disable camelcase, no-param-reassign */
+
 import { readFileSync, writeFile } from 'fs'
 import fetch from 'node-fetch'
 
@@ -27,13 +29,14 @@ const
       .then(res => res.json())
 
       .then(res => {
-        if(res.ok) {  // API returned successful result
-          res.result.reduce((cache, update) => {
+        if(res.ok) {
+          // API returned successful result
+          res.result.reduce((cache, { update_id, message }) => {
             const
-              { text, 'chat': { id, first_name } } = update.message,
+              { text, 'chat': { id, first_name } } = message,
               subscribers = new Set(cache.subscribers)
 
-            cache.lastUpdate = update.update_id
+            cache.lastUpdate = update_id
 
             if(text.startsWith('/start')) {
               subscribers.add(id)

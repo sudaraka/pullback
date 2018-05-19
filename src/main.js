@@ -9,8 +9,10 @@
  * details.
  */
 
+/* eslint-disable no-param-reassign */
+
 import { readFileSync, createWriteStream, writeFile } from 'fs'
-import { basename, dirname, join as path_join } from 'path'
+import { basename, dirname, join as pathJoin } from 'path'
 
 import mkdirP from 'mkdirp'
 import fetch from 'node-fetch'
@@ -41,7 +43,6 @@ export default () => {
     .map(readTelegramCache)
     .map(handleTelegramRequests)
     .map(cfg => {
-
       // Fetch JSON string from URL
       fetch(cfg.url)
 
@@ -51,7 +52,7 @@ export default () => {
         // Index stat by filename { filename: data }
         .then(list => list.reduce((acc, f) => {
           acc[f.name] = f
-          cfg.stat[f.name] = f.size
+          cfg.stat[f.name] = f.size  // eslint-disable-line prefer-destructuring
 
           return acc
         }, {}))
@@ -64,7 +65,7 @@ export default () => {
                   cacheSize = parseInt(cfg.cache[fname], 10),
                   diff = Math.abs(newSize - cacheSize)
 
-                if(isNaN(diff) || 12 < diff) {
+                if(isNaN(diff) || 12 < diff) {  // eslint-disable-line no-magic-numbers
                   // Current file size is different or not found in cache.
                   // Download file
                   //
@@ -73,13 +74,15 @@ export default () => {
 
                   acc.push(
                     fetch(`${cfg.url}${fname}`)
-                    .then(res => ({
-                      ...res,
-                      'sizes': [
-                        parseInt(cfg.cache[fname], 10),  // From
-                        parseInt(list[fname].size, 10)  // To
-                      ]
-                    }))
+                      .then(res => ({
+                        ...res,
+                        'sizes': [
+                          // From
+                          parseInt(cfg.cache[fname], 10),
+                          // To
+                          parseInt(list[fname].size, 10)
+                        ]
+                      }))
                   )
                 }
 
@@ -94,17 +97,18 @@ export default () => {
           mkdirP.sync(cfg.dest)
 
           list.forEach(f => {
-            f.body.pipe(createWriteStream(path_join(cfg.dest, basename(f.url))))
+            f.body.pipe(createWriteStream(pathJoin(cfg.dest, basename(f.url))))
           })
 
           // Update cache
           if(0 < list.length) {
             mkdirP(dirname(cfg.cacheFile))
 
-            writeFile(cfg.cacheFile, JSON.stringify(cfg.stat, null, 2), () => {})
+            writeFile(cfg.cacheFile, JSON.stringify(cfg.stat, null, 2), _ => _)
 
             list.forEach(f => {
-              f.sizes = f.sizes.filter(s => !isNaN(s)).join(' -> ')  // show size as "from -> to"
+              // show size as "from -> to"
+              f.sizes = f.sizes.filter(s => !isNaN(s)).join(' -> ')
             })
 
             cfg.telegram.subscribers.map(
@@ -125,7 +129,8 @@ export default () => {
             )
           )
         })
+
+      return cfg
     })
     .value()
-
 }

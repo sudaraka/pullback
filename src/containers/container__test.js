@@ -13,52 +13,56 @@
  *
  */
 
+/* eslint-disable no-magic-numbers */
+
 import expect, { spyOn } from 'expect'
-import { is_functor } from '../test/helpers'
+import { isFunctor } from '../test/helpers'
 import container from './container'
 
 describe('Container', () => {
-
-  is_functor(container)
+  isFunctor(container)
 
   describe('map() method', () => {
-
     it('should receive contained value', () => {
       container(42).map(val => {
         expect(val).toBe(42)
+
+        return val
       })
     })
 
     it('should return a new container', () => {
       const
-        container_a = container(42),
-        container_b = container_a.map(val => val + 1)
+        containerA = container(42),
+        containerB = containerA.map(val => val + 1)
 
-      is_functor(container_b)
+      isFunctor(containerB)
 
-      expect(container_b).toNotBe(container_a)
+      expect(containerB).toNotBe(containerA)
 
-      container_b.map(val => {
+      containerB.map(val => {
         expect(val).toBe(43)
+
+        return val
       })
     })
 
     it('should return same container when mapped with non function', () => {
       const
-        container_a = container(42),
-        container_b = container_a.map(),
-        container_c = container_a.map(1),
-        container_d = container_a.map('not a function'),
-        container_e = container_a.map({})
+        containerA = container(42),
+        containerB = containerA.map(),
+        containerC = containerA.map(1),
+        containerD = containerA.map('not a function'),
+        containerE = containerA.map({})
 
-      expect(container_b).toBe(container_a,
-          'map with undefined returned a new container')
-      expect(container_c).toBe(container_a,
-          'map with number returned a new container')
-      expect(container_d).toBe(container_a,
-          'map with string returned a new container')
-      expect(container_e).toBe(container_a,
-          'map with object returned a new container')
+      expect(containerB).toBe(containerA,
+        'map with undefined returned a new container')
+      expect(containerC).toBe(containerA,
+        'map with number returned a new container')
+      expect(containerD).toBe(containerA,
+        'map with string returned a new container')
+      expect(containerE).toBe(containerA,
+        'map with object returned a new container')
     })
 
     it('should not execute given function', () => {
@@ -70,11 +74,9 @@ describe('Container', () => {
 
       expect(spy).toNotHaveBeenCalled()
     })
-
   })
 
   describe('value() method', () => {
-
     it('should return the contained value', () => {
       expect(container(42).value()).toBe(42)
     })
@@ -124,8 +126,6 @@ describe('Container', () => {
       expect(result2.value()).toBe(42)
       expect(result3.value()).toBe('Answer is 42')
     })
-
   })
-
 })
 
